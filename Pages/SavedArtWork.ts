@@ -4,7 +4,7 @@ import { readFileSync,writeFileSync } from "fs";
 
 export class SavedArtWork {
     private saveName:string;
-    private fileName = "utility/savevalue"
+   // private fileName = "utility/savevalue"
 
 
     public getName(){

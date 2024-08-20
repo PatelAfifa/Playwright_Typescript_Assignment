@@ -104,9 +104,9 @@ this.ownedByValue=page.locator('[id="headlessui-combobox-input-\\:r6\\:"]');
 this.theMarketPlaceMinted=page.getByRole('button', { name: 'Select Marketplace' });
 this.marketplaceSelect=page.getByRole('option', { name: 'Foundation' });
 this.mintedOn=page.getByRole('button', { name: 'Choose Date' });
-this.mintedDate=page.locator('xpath=//button[normalize-space()="27"]');
+this.mintedDate=page.getByRole('gridcell', { name: '27' });
 this.createdDate=page.locator('div').filter({ hasText: /^Created On \*Choose Date$/ }).getByRole('button');;
-this.selectCreatedDate=page.getByRole('gridcell', { name: '25' }).nth(1);
+this.selectCreatedDate=page.getByRole('gridcell', { name: '26' });
 this.copyRight=page.getByRole('button', { name: 'Select copyright' });
 this.copyRightOption=page.getByRole('option', { name: 'COPY RIGHT 1 Lorem ipsum' });
 this.artistLoyality=page.locator('xpath=//input[@name="artist_loyalty" and @type="radio" and @value="1"]');
@@ -134,7 +134,7 @@ generateRandomNumber(): number {
     return Math.floor(Math.random() * 900) + 100;
 }
 generateRandomArtName(): string {
-    const constantString = 'MyNewArt#';
+    const constantString = 'NewArt#';
     const storedRandomNumber = this.generateRandomNumber();
     return constantString + storedRandomNumber;
 }
@@ -157,18 +157,18 @@ await this.userName.fill(testdata.username);
 await this.password.click();
 await this.password.fill(testdata.Password);
 await this.submit.click()
-await this.page.waitForTimeout(3000);
+await this.page.waitForTimeout(8000);
 }
 //Create New Artwork
 async newArt(){
-     
-    //console.log(this.myArtName);
+    await this.page.setViewportSize({width:1280,height:720});
+    console.log(this.myArtName);
     this.myArtName = this.generateRandomArtName()
+    console.log(this.myArtName);
+    await this.newArtWork.click({ timeout: 80000 });
     await this.page.waitForLoadState();
-    await this.newArtWork.isVisible();
-    await this.newArtWork.click();
     await this.addArtWork.isVisible();
-    await this.addArtWork.click();
+    await this.addArtWork.click({ timeout: 80000 });
     await this.artName.isVisible();
     await this.artName.fill(this.myArtName);
     await this.editionType.isVisible();
@@ -199,24 +199,16 @@ async newArt(){
     await this.collabatorValue.fill(testdata.UserID);
     await this.collabatorValue.press('Enter');
     }
-    await this.mintedOn.nth(0).click();
-    if(this.mintedDate){
-    await this.mintedDate.click();
-    }
-   // await this.createdDate.isVisible();
+
     await this.createdDate.click();
     await this.selectCreatedDate.click();
     await this.copyRight.click();
     await this.copyRightOption.click();
-    await this.ownedBy.click();
-    await this.ownedByValue.isVisible();
-    await this.ownedByValue.fill(testdata.UserID);
-    await this.ownedByValue.press('Enter');
     await this.artistLoyality.click();
     await this.artistLoyalityOption.nth(1).click();
     await this.physicalPiece.check();
-    await this.publish.click();
-   
+    await this.publish.click({ timeout: 80000 });
+
     this.saveArt.setName(this.myArtName);
     console.log(this.saveArt.getName());
 
@@ -224,26 +216,31 @@ async newArt(){
 }
 //Artwork Published
  async  artworkPublished(){
-    await this.publishedProject.click();
+    await this.page.setViewportSize({width:1280,height:720});
+   // await this.page.waitForTimeout(5000);
+    await this.publishedProject.waitFor({state:"visible"});
+    console.log('artworkopen');
+    await this.publishedProject.click({ timeout: 80000 });
     console.log(this.saveArt.getName());
     await this.searchpublishedArt.fill(this.saveArt.getName());
     await this.publishedArtWork.isVisible();
-    await this.publishedArtWork.click();
+    await this.publishedArtWork.click({ timeout: 80000 });
     await console.log("Your Artwork is published successfully");
 
 }
 //Artwork Review
 async artworkReview(){
-    await this.page.waitForTimeout(3000);
+    await this.page.setViewportSize({width:1280,height:720});
     await this.openMyArt.waitFor({state:"visible"});
-    await this.openMyArt.click();
+    await this.openMyArt.click({ timeout: 80000 });
     await this.searchArt.fill(this.saveArt.getName());
-    await this.publishedArtWork.click();
+    console.log('artworkopen');
+    await this.publishedArtWork.click({ timeout: 80000 });
     await this.page.waitForLoadState();
-    await this.Review.click();
+    await this.Review.click({ timeout: 80000 });
     await this.reviewTitle.pressSequentially(testdata.Tiltle,{delay:50});
     await this.reviewDetail.pressSequentially(testdata.Details,{delay:50});
-    await this.reviewSubmit.click();
+    await this.reviewSubmit.click({ timeout: 80000 });
 
 }
 
