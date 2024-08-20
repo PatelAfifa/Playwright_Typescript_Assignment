@@ -201,7 +201,7 @@ async newArt(){
     }
 
     await this.createdDate.click();
-    await this.selectCreatedDate.click();
+    await this.selectCreatedDate.click({ timeout: 80000 });
     await this.copyRight.click();
     await this.copyRightOption.click();
     await this.artistLoyality.click();
