@@ -14,6 +14,5 @@ import { test, expect } from '../tests/fixtures'
             await page.waitForLoadState();
             await page.evaluate("document.body.style.zoom=1.0")
             await homepage.artworkReview();
-            await page.screenshot({ path: 'screenshot3.png', fullPage: true });
             
             });

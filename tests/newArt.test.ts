@@ -13,7 +13,6 @@ test.setTimeout(80000);
    await page.waitForLoadState();
    await page.evaluate("document.body.style.zoom=1.0")
    await homepage.newArt();
-   await page.screenshot({ path: 'NewArt.png', fullPage: true });
     
     });
    

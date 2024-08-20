@@ -134,7 +134,7 @@ generateRandomNumber(): number {
     return Math.floor(Math.random() * 900) + 100;
 }
 generateRandomArtName(): string {
-    const constantString = 'NewArt#';
+    const constantString = 'OurNewArt#';
     const storedRandomNumber = this.generateRandomNumber();
     return constantString + storedRandomNumber;
 }
